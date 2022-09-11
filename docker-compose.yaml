@@ -3,12 +3,16 @@ version: '3'
 services:
     library_db:
         image: postgres
+        container_name: library_db
         ports:
-            ["5432:5432"]
+            ["0000:5432"]
         environment:
+            - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=password
-    aplicacao:
-        image: my-app:1.0
-        ports:
-            ["8080:8080"]
-        
+        healthcheck:
+            test: ["CMD", "pg_isready", "-h", "library_db", "-p", "5432"]
+                timeout: 10s
+                retries: 3
+                interval: 5s
+                start_period: 5s
+              restart: always
