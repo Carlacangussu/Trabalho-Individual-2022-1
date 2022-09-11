@@ -8,7 +8,7 @@ services:
         environment:
             - POSTGRES_PASSWORD=password
     aplicacao:
-        image: my-app
+        image: my-app:1.0
         ports:
             ["8080:8080"]
         
