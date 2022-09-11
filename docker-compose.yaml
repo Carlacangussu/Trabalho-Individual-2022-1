@@ -9,10 +9,15 @@ services:
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=password
-        healthcheck:
-            test: ["CMD", "pg_isready", "-h", "library_db", "-p", "5432"]
-                timeout: 10s
-                retries: 3
-                interval: 5s
-                start_period: 5s
-              restart: always
+
+    back:
+        image: my-back
+        container_name: back
+        ports:
+            ["8080:8080"]
+
+    front:
+        image: my-front
+        container_name: front
+        ports:
+            ["3000:3000"]

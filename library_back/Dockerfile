@@ -1,10 +1,12 @@
 FROM python:3
 
-COPY /libary_back/requirements.txt ./
+COPY ./library_back/requirements.txt ./
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python3 -m venv env
+RUN . env/bin/activate
+RUN pip install -r requirements.txt
 
-COPY . .
+COPY . library_back
 
 
-CMD [ "python", "./libary_back/manage.py" ]
+CMD [ "python", "manage.py" ]
