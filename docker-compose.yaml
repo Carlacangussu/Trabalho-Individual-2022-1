@@ -5,19 +5,22 @@ services:
         image: postgres
         container_name: library_db
         ports:
-            ["0000:5432"]
+            ["5432:5432"]
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=password
-
     back:
+        build: 
+            context: ./library_back
+            dockerfile: Dockerfile 
+        command: python manage.py runserver 0.0.0.0:8080
         image: my-back
-        container_name: back
+        container_name: my-back
         ports:
             ["8080:8080"]
-
-    front:
-        image: my-front
-        container_name: front
-        ports:
-            ["3000:3000"]
+        environment:
+            - POSTGRES_NAME=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=password
+        depends_on:
+            - library_db
