@@ -24,3 +24,12 @@ services:
             - POSTGRES_PASSWORD=password
         depends_on:
             - library_db
+    front: 
+        build:
+            context: ./library_front
+            dockerfile: Dockerfile
+        command: npm start
+        image: my-front
+        container_name: my-front
+        ports:
+            ["3000:3000"]

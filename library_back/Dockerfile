@@ -8,3 +8,4 @@ WORKDIR /library_back
 COPY /library_back/requirements.txt .
 
 RUN pip install --root-user-action=ignore -r ./library_back/requirements.txt
+RUN python manage.py runserver 0.0.0.0:8080
